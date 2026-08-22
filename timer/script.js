@@ -2,6 +2,7 @@ const MAX_DEX_NUMBER = 1025;
 
 const timerDisplay = document.getElementById("timer-display");
 const timerMessage = document.getElementById("timer-message");
+const timerEgg = document.getElementById("timer-egg");
 const timerPokemonImg = document.getElementById("timer-pokemon");
 const presetButtons = document.querySelectorAll(".preset-btn");
 const minutesInput = document.getElementById("minutes-input");
@@ -14,6 +15,7 @@ const resetBtn = document.getElementById("reset-btn");
 let totalSeconds = 0;
 let remainingSeconds = totalSeconds;
 let intervalId = null;
+let isPaused = false;
 
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
@@ -25,7 +27,7 @@ function renderTime() {
   timerDisplay.textContent = formatTime(remainingSeconds);
 }
 
-async function loadRandomPokemon() {
+async function hatchRandomPokemon() {
   const id = Math.floor(Math.random() * MAX_DEX_NUMBER) + 1;
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -34,9 +36,16 @@ async function loadRandomPokemon() {
       data.sprites?.other?.["official-artwork"]?.front_default || data.sprites?.front_default || "";
     timerPokemonImg.src = sprite;
     timerPokemonImg.alt = data.name;
+    timerEgg.classList.add("hidden");
+    timerPokemonImg.classList.remove("hidden");
   } catch (error) {
-    timerPokemonImg.src = "";
+    // keep the egg showing if the hatch fetch fails
   }
+}
+
+function showEgg() {
+  timerPokemonImg.classList.add("hidden");
+  timerEgg.classList.remove("hidden");
 }
 
 function playBeep() {
@@ -60,8 +69,10 @@ function setTotalSeconds(seconds) {
   remainingSeconds = totalSeconds;
   timerMessage.textContent = "";
   timerMessage.classList.remove("done");
+  isPaused = false;
+  updateButtonStates();
+  showEgg();
   renderTime();
-  loadRandomPokemon();
 }
 
 function addSeconds(amount) {
@@ -79,8 +90,16 @@ function clearTimer() {
   }
 }
 
+function updateButtonStates() {
+  startBtn.classList.toggle("btn-active", intervalId !== null);
+  pauseBtn.classList.toggle("btn-active", isPaused);
+}
+
 function startTimer() {
   if (intervalId !== null || remainingSeconds <= 0) return;
+
+  isPaused = false;
+  updateButtonStates();
 
   intervalId = setInterval(() => {
     remainingSeconds -= 1;
@@ -88,15 +107,21 @@ function startTimer() {
 
     if (remainingSeconds <= 0) {
       clearTimer();
+      isPaused = false;
+      updateButtonStates();
       timerMessage.textContent = "Time's up!";
       timerMessage.classList.add("done");
+      hatchRandomPokemon();
       playBeep();
     }
   }, 1000);
 }
 
 function pauseTimer() {
+  if (intervalId === null) return;
   clearTimer();
+  isPaused = true;
+  updateButtonStates();
 }
 
 function resetTimer() {
