@@ -7,7 +7,6 @@ const timerPokemonImg = document.getElementById("timer-pokemon");
 const presetButtons = document.querySelectorAll(".preset-btn");
 const minutesInput = document.getElementById("minutes-input");
 const secondsInput = document.getElementById("seconds-input");
-const setCustomBtn = document.getElementById("set-custom");
 const startBtn = document.getElementById("start-btn");
 const pauseBtn = document.getElementById("pause-btn");
 const resetBtn = document.getElementById("reset-btn");
@@ -25,6 +24,13 @@ function formatTime(seconds) {
 
 function renderTime() {
   timerDisplay.textContent = formatTime(remainingSeconds);
+
+  if (document.activeElement !== minutesInput) {
+    minutesInput.value = Math.floor(remainingSeconds / 60);
+  }
+  if (document.activeElement !== secondsInput) {
+    secondsInput.value = remainingSeconds % 60;
+  }
 }
 
 async function hatchRandomPokemon() {
@@ -134,11 +140,14 @@ presetButtons.forEach((button) => {
   });
 });
 
-setCustomBtn.addEventListener("click", () => {
+function applyCustomTime() {
   const minutes = Number(minutesInput.value) || 0;
   const seconds = Number(secondsInput.value) || 0;
   setTotalSeconds(minutes * 60 + seconds);
-});
+}
+
+minutesInput.addEventListener("input", applyCustomTime);
+secondsInput.addEventListener("input", applyCustomTime);
 
 startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", pauseTimer);
