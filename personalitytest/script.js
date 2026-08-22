@@ -78,8 +78,7 @@ function setPhase(nextPhase) {
   resultControls.classList.toggle("hidden", phase !== "result");
 
   if (phase === "setup") {
-    instructionsEl.textContent =
-      "Four players each type their name under one Pokémon, leaving two blank. Then lock in the answers.";
+    instructionsEl.textContent = "";
   } else if (phase === "guess") {
     instructionsEl.textContent =
       "Player two: pick which name (or blank) belongs to each Pokémon, then submit your guesses.";
