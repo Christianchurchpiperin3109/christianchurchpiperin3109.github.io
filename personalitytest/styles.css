@@ -45,10 +45,11 @@ body {
 
 .panel {
   background: var(--panel-strong);
-  border: 3px solid rgba(126, 93, 160, 0.14);
-  border-radius: 30px;
-  box-shadow: 0 24px 60px var(--shadow);
-  padding: 1.25rem 1.25rem 1.5rem;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  outline: 3px solid rgba(126, 93, 160, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 14px 30px var(--shadow);
+  padding: 1.4rem 1.25rem 1.25rem;
 }
 
 .topbar {
@@ -70,11 +71,9 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
   line-height: 1.1;
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  -webkit-text-stroke: 0.5px currentColor;
+  font-weight: 800;
 }
 
 .title-accent {
@@ -85,11 +84,11 @@ h1 {
   border: none;
   background: var(--accent-4);
   color: white;
-  padding: 0.8rem 1.1rem;
-  border-radius: 14px;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 800;
-  box-shadow: 0 10px 20px rgba(122, 184, 255, 0.3);
+  box-shadow: 0 8px 16px rgba(122, 184, 255, 0.35);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
@@ -129,7 +128,7 @@ h1 {
 .poke-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.55));
   border: 2px solid rgba(122, 88, 180, 0.12);
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -155,11 +154,12 @@ h1 {
 
 .name-input {
   width: 100%;
-  padding: 0.55rem 0.6rem;
-  border-radius: 10px;
-  border: 2px solid rgba(122, 88, 180, 0.2);
-  background: rgba(255, 255, 255, 0.85);
+  padding: 0.5rem 0.6rem;
+  border-radius: 12px;
+  border: 2px solid rgba(122, 88, 180, 0.18);
+  background: rgba(255, 255, 255, 0.9);
   color: var(--ink);
+  text-align: center;
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 700;
@@ -203,12 +203,12 @@ h1 {
   border: none;
   background: var(--accent-2);
   color: var(--ink);
-  padding: 0.85rem 1.4rem;
-  border-radius: 14px;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 800;
   font-size: 1rem;
-  box-shadow: 0 10px 20px rgba(255, 179, 71, 0.3);
+  box-shadow: 0 8px 16px rgba(255, 179, 71, 0.35);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 

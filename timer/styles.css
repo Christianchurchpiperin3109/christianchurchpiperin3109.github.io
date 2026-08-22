@@ -45,26 +45,25 @@ body {
 
 .panel {
   background: var(--panel-strong);
-  border: 3px solid rgba(126, 93, 160, 0.14);
-  border-radius: 26px;
-  box-shadow: 0 16px 36px var(--shadow);
-  padding: 1.1rem;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  outline: 3px solid rgba(126, 93, 160, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 14px 30px var(--shadow);
+  padding: 1.4rem 1.25rem 1.25rem;
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
   line-height: 1.1;
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  -webkit-text-stroke: 0.5px currentColor;
+  font-weight: 800;
   text-align: center;
 }
 
@@ -76,17 +75,19 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  margin-bottom: 0.9rem;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .timer-image-slot {
-  width: 110px;
-  height: 110px;
+  width: 108px;
+  height: 108px;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.1));
-  border-radius: 16px;
+  background: radial-gradient(circle at 35% 30%, #ffffff, var(--accent-3) 120%);
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(110, 231, 200, 0.4);
+  padding: 0.9rem;
 }
 
 .timer-egg {
@@ -106,9 +107,9 @@ h1 {
 }
 
 .timer-display {
-  margin: 0.2rem 0 0;
-  font-size: clamp(2.2rem, 9vw, 3.2rem);
-  font-weight: 900;
+  margin: 0.1rem 0 0;
+  font-size: clamp(2.1rem, 8vw, 2.9rem);
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
 
@@ -124,20 +125,24 @@ h1 {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.8rem;
 }
 
 .preset-btn {
   border: none;
   background: var(--accent-3);
   color: var(--ink);
-  padding: 0.55rem 0.9rem;
-  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 14px rgba(110, 231, 200, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .preset-btn:hover {
+  transform: translateY(-1px);
   filter: brightness(1.05);
 }
 
@@ -146,25 +151,27 @@ h1 {
   align-items: flex-end;
   gap: 0.6rem;
   justify-content: center;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .custom-time label {
   display: flex;
   flex-direction: column;
-  font-size: 0.75rem;
+  align-items: center;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--muted);
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .custom-time input {
-  width: 4rem;
-  padding: 0.5rem;
-  border-radius: 10px;
-  border: 2px solid rgba(122, 88, 180, 0.2);
+  width: 3.6rem;
+  padding: 0.45rem;
+  border-radius: 12px;
+  border: 2px solid rgba(122, 88, 180, 0.18);
   background: rgba(255, 255, 255, 0.9);
   color: var(--ink);
+  text-align: center;
   font-family: inherit;
   font-size: 1rem;
   font-weight: 700;
@@ -180,11 +187,11 @@ h1 {
   border: none;
   background: var(--accent-4);
   color: white;
-  padding: 0.8rem 1.1rem;
-  border-radius: 14px;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 800;
-  box-shadow: 0 10px 20px rgba(122, 184, 255, 0.3);
+  box-shadow: 0 8px 16px rgba(122, 184, 255, 0.35);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
@@ -209,12 +216,12 @@ h1 {
   border: none;
   background: var(--accent-2);
   color: var(--ink);
-  padding: 0.85rem 1.4rem;
-  border-radius: 14px;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 800;
   font-size: 1rem;
-  box-shadow: 0 10px 20px rgba(255, 179, 71, 0.3);
+  box-shadow: 0 8px 16px rgba(255, 179, 71, 0.35);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
