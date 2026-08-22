@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Game</title>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel">
+        <div class="topbar">
+          <div>
+            <h1 class="bold-title">Weather Game</h1>
+          </div>
+          <button id="randomize-btn" class="primary-btn" type="button">Randomize</button>
+        </div>
+
+        <p id="status-message" class="status-message">Hit Randomize to discover a place.</p>
+
+        <div id="place-card" class="place-card hidden">
+          <img id="place-photo" class="place-photo" src="" alt="" />
+          <h2 id="place-name" class="place-name"></h2>
+          <p id="place-region" class="place-region"></p>
+
+          <div class="weather-row">
+            <span id="weather-emoji" class="weather-emoji"></span>
+            <div class="weather-info">
+              <p id="weather-condition" class="weather-condition"></p>
+              <p id="weather-temp" class="weather-temp"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="cities.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+  </body>
+</html>
