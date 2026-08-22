@@ -3,42 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personality Test</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Zane Games</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #fff4c7 0%, #ffd5ec 35%, #d9f5ff 100%);
+        color: #2a2156;
+      }
+      main {
+        text-align: center;
+      }
+      a {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.85rem 1.4rem;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #7ab8ff, #ff6eb6);
+        color: white;
+        font-weight: 800;
+        text-decoration: none;
+      }
+    </style>
   </head>
   <body>
-    <main class="app">
-      <section class="panel">
-        <div class="topbar">
-          <div>
-            <p class="eyebrow">Party game</p>
-            <h1>Personality Test</h1>
-          </div>
-          <button id="randomize-btn" class="ghost-btn" type="button">Randomize</button>
-        </div>
-
-        <p id="instructions" class="instructions">
-          Hit <strong>Randomize</strong> to pick 6 Pokémon. Four players each type their name under
-          one Pokémon, leaving two blank. Then lock in the answers so player two can guess who's who.
-        </p>
-
-        <div id="card-grid" class="card-grid"></div>
-
-        <div id="setup-controls" class="controls">
-          <button id="lock-answers" class="primary-btn" type="button">Lock in answers</button>
-        </div>
-
-        <div id="guess-controls" class="controls hidden">
-          <button id="submit-guesses" class="primary-btn" type="button">Submit guesses</button>
-        </div>
-
-        <div id="result-controls" class="controls hidden">
-          <p id="result-message" class="result-message"></p>
-          <button id="play-again" class="ghost-btn" type="button">Play again</button>
-        </div>
-      </section>
+    <main>
+      <h1>Zane Games</h1>
+      <a href="/personalitytest/">Play Personality Test</a>
     </main>
-
-    <script src="script.js"></script>
   </body>
 </html>
