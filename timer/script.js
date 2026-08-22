@@ -14,6 +14,7 @@ const resetBtn = document.getElementById("reset-btn");
 let totalSeconds = 0;
 let remainingSeconds = totalSeconds;
 let intervalId = null;
+let shakeIntervalId = null;
 let isPaused = false;
 
 function formatTime(seconds) {
@@ -54,6 +55,26 @@ function showEgg() {
   timerEgg.classList.remove("hidden");
 }
 
+function shakeEgg() {
+  timerEgg.classList.remove("shake");
+  // force reflow so the animation can retrigger
+  void timerEgg.offsetWidth;
+  timerEgg.classList.add("shake");
+}
+
+function startShaking() {
+  stopShaking();
+  shakeIntervalId = setInterval(shakeEgg, 4000);
+}
+
+function stopShaking() {
+  if (shakeIntervalId !== null) {
+    clearInterval(shakeIntervalId);
+    shakeIntervalId = null;
+  }
+  timerEgg.classList.remove("shake");
+}
+
 function playBeep() {
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
   const ctx = new AudioContextClass();
@@ -71,6 +92,7 @@ function playBeep() {
 
 function setTotalSeconds(seconds) {
   clearTimer();
+  stopShaking();
   totalSeconds = Math.max(0, seconds);
   remainingSeconds = totalSeconds;
   timerMessage.textContent = "";
@@ -106,6 +128,7 @@ function startTimer() {
 
   isPaused = false;
   updateButtonStates();
+  startShaking();
 
   intervalId = setInterval(() => {
     remainingSeconds -= 1;
@@ -113,6 +136,7 @@ function startTimer() {
 
     if (remainingSeconds <= 0) {
       clearTimer();
+      stopShaking();
       isPaused = false;
       updateButtonStates();
       timerMessage.textContent = "Time's up!";
@@ -126,6 +150,7 @@ function startTimer() {
 function pauseTimer() {
   if (intervalId === null) return;
   clearTimer();
+  stopShaking();
   isPaused = true;
   updateButtonStates();
 }
