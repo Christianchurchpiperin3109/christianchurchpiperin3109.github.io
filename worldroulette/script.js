@@ -35,10 +35,13 @@ const placeCard = document.getElementById("place-card");
 const placePhoto = document.getElementById("place-photo");
 const placeName = document.getElementById("place-name");
 const placeRegion = document.getElementById("place-region");
+const placeTime = document.getElementById("place-time");
 const weatherEmoji = document.getElementById("weather-emoji");
 const weatherCondition = document.getElementById("weather-condition");
 const weatherTemp = document.getElementById("weather-temp");
 const pageBg = document.getElementById("page-bg");
+
+let clockIntervalId = null;
 
 function pickRandomCity() {
   const index = Math.floor(Math.random() * WEATHER_GAME_CITIES.length);
@@ -46,11 +49,11 @@ function pickRandomCity() {
 }
 
 async function fetchWeather(city) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true&temperature_unit=fahrenheit`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true&temperature_unit=fahrenheit&timezone=auto`;
   const response = await fetch(url);
   if (!response.ok) throw new Error("Weather request failed");
   const data = await response.json();
-  return data.current_weather;
+  return { current: data.current_weather, timezone: data.timezone };
 }
 
 async function fetchPlacePhoto(city) {
@@ -78,6 +81,24 @@ function formatRegionLine(city) {
   return city.region ? `${city.region}, ${city.country}` : city.country;
 }
 
+function startClock(timezone) {
+  if (clockIntervalId !== null) {
+    clearInterval(clockIntervalId);
+  }
+
+  function updateClock() {
+    const formatted = new Date().toLocaleTimeString("en-US", {
+      timeZone: timezone,
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    placeTime.textContent = `Local time: ${formatted}`;
+  }
+
+  updateClock();
+  clockIntervalId = setInterval(updateClock, 15000);
+}
+
 async function randomizePlace() {
   randomizeBtn.disabled = true;
   statusMessage.textContent = "Finding a place...";
@@ -87,13 +108,14 @@ async function randomizePlace() {
 
   try {
     const [weather, photoUrl] = await Promise.all([fetchWeather(city), fetchPlacePhoto(city)]);
-    const conditionInfo = WEATHER_CODE_MAP[weather.weathercode] || { label: "Unknown", emoji: "🌡️" };
+    const conditionInfo = WEATHER_CODE_MAP[weather.current.weathercode] || { label: "Unknown", emoji: "🌡️" };
 
     placeName.textContent = city.name;
     placeRegion.textContent = formatRegionLine(city);
     placePhoto.src = photoUrl;
     placePhoto.alt = city.name;
     placePhoto.classList.toggle("hidden", !photoUrl);
+    startClock(weather.timezone);
 
     if (photoUrl) {
       pageBg.style.backgroundImage = `url("${photoUrl}")`;
@@ -101,7 +123,7 @@ async function randomizePlace() {
 
     weatherEmoji.textContent = conditionInfo.emoji;
     weatherCondition.textContent = conditionInfo.label;
-    weatherTemp.textContent = `${Math.round(weather.temperature)}°F`;
+    weatherTemp.textContent = `${Math.round(weather.current.temperature)}°F`;
 
     statusMessage.textContent = "";
     placeCard.classList.remove("hidden");
