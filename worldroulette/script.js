@@ -135,3 +135,5 @@ async function randomizePlace() {
 }
 
 randomizeBtn.addEventListener("click", randomizePlace);
+
+randomizePlace();
