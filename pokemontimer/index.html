@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Timer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel">
+        <div class="topbar">
+          <div>
+            <h1 class="bold-title">Pokémon <span class="title-accent">Timer</span></h1>
+          </div>
+        </div>
+
+        <div class="timer-wrap">
+          <img id="timer-pokemon" class="timer-pokemon" src="" alt="Pokémon" />
+          <p id="timer-display" class="timer-display">00:30</p>
+          <p id="timer-message" class="timer-message"></p>
+        </div>
+
+        <div class="presets">
+          <button class="preset-btn" type="button" data-seconds="10">10s</button>
+          <button class="preset-btn" type="button" data-seconds="30">30s</button>
+          <button class="preset-btn" type="button" data-seconds="60">1m</button>
+          <button class="preset-btn" type="button" data-seconds="120">2m</button>
+          <button class="preset-btn" type="button" data-seconds="300">5m</button>
+        </div>
+
+        <div class="custom-time">
+          <label>
+            Min
+            <input id="minutes-input" type="number" min="0" max="59" value="0" />
+          </label>
+          <label>
+            Sec
+            <input id="seconds-input" type="number" min="0" max="59" value="30" />
+          </label>
+          <button id="set-custom" class="ghost-btn" type="button">Set</button>
+        </div>
+
+        <div class="controls">
+          <button id="start-btn" class="primary-btn" type="button">Start</button>
+          <button id="pause-btn" class="ghost-btn" type="button">Pause</button>
+          <button id="reset-btn" class="ghost-btn" type="button">Reset</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
