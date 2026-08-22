@@ -131,7 +131,7 @@ function pauseTimer() {
 }
 
 function resetTimer() {
-  setTotalSeconds(totalSeconds);
+  setTotalSeconds(0);
 }
 
 presetButtons.forEach((button) => {
