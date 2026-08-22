@@ -1,0 +1,231 @@
+:root {
+  --bg-1: #fff4c7;
+  --bg-2: #ffd5ec;
+  --bg-3: #d9f5ff;
+  --panel-strong: rgba(255, 255, 255, 0.9);
+  --ink: #2a2156;
+  --muted: #5c4d82;
+  --accent: #ff6eb6;
+  --accent-2: #ffb347;
+  --accent-3: #6ae7c8;
+  --accent-4: #7ab8ff;
+  --danger: #e5533d;
+  --good: #2e8b57;
+  --shadow: rgba(80, 46, 119, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
+  color: var(--ink);
+  font-family: "Satoshi", "Trebuchet MS", "Segoe UI", sans-serif;
+  font-weight: 700;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  width: min(92vw, 460px);
+}
+
+.panel {
+  background: var(--panel-strong);
+  border: 3px solid rgba(126, 93, 160, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 14px 30px var(--shadow);
+  padding: 1.3rem 1.15rem 1.15rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.15rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.primary-btn {
+  border: none;
+  background: var(--accent-2);
+  color: var(--ink);
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 16px rgba(255, 179, 71, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.primary-btn:disabled,
+.ghost-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ghost-btn {
+  display: block;
+  margin: 1rem auto 0;
+  border: none;
+  background: var(--accent-4);
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 8px 16px rgba(122, 184, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.ghost-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.status-message {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.matchup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.poke-choice {
+  flex: 1;
+  border: 3px solid rgba(122, 88, 180, 0.14);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 0.8rem 0.6rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.poke-choice:hover {
+  transform: translateY(-2px);
+}
+
+.poke-choice.selected {
+  border-color: var(--accent-4);
+  background: rgba(122, 184, 255, 0.18);
+}
+
+.poke-choice.winner {
+  border-color: var(--good);
+  background: rgba(46, 139, 87, 0.16);
+}
+
+.poke-choice.loser {
+  border-color: var(--danger);
+  background: rgba(229, 83, 61, 0.14);
+}
+
+.poke-choice-img {
+  width: 100%;
+  max-width: 120px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.poke-choice-name {
+  margin: 0;
+  font-weight: 800;
+  text-align: center;
+}
+
+.poke-choice-stat {
+  margin: 0;
+  min-height: 1.1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.vs-label {
+  font-weight: 900;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.prompt-message {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.result-message {
+  margin: 0.8rem 0 0;
+  font-weight: 800;
+  text-align: center;
+  min-height: 1.4rem;
+}
+
+.result-message.correct {
+  color: var(--good);
+}
+
+.result-message.incorrect {
+  color: var(--danger);
+}
+
+@media (max-width: 420px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+}

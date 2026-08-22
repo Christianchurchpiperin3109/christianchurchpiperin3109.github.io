@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trend Tracker</title>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">Wikipedia Popularity</p>
+            <h1 class="bold-title">Trend Tracker</h1>
+          </div>
+          <button id="new-round-btn" class="primary-btn" type="button">New Round</button>
+        </div>
+
+        <p id="status-message" class="status-message">Loading a matchup...</p>
+
+        <div id="matchup" class="matchup hidden">
+          <button id="card-a" class="poke-choice" type="button">
+            <img id="poke-a-img" class="poke-choice-img" src="" alt="" />
+            <p id="poke-a-name" class="poke-choice-name"></p>
+            <p id="poke-a-stat" class="poke-choice-stat"></p>
+          </button>
+
+          <div class="vs-label">VS</div>
+
+          <button id="card-b" class="poke-choice" type="button">
+            <img id="poke-b-img" class="poke-choice-img" src="" alt="" />
+            <p id="poke-b-name" class="poke-choice-name"></p>
+            <p id="poke-b-stat" class="poke-choice-stat"></p>
+          </button>
+        </div>
+
+        <p id="prompt-message" class="prompt-message hidden">
+          Which Pokémon had more Wikipedia page views last month?
+        </p>
+
+        <button id="reveal-btn" class="ghost-btn hidden" type="button" disabled>Reveal</button>
+
+        <p id="result-message" class="result-message"></p>
+      </section>
+    </main>
+
+    <script src="pokemon-list.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+  </body>
+</html>
