@@ -72,12 +72,17 @@ async function fetchPageviews(articleTitle) {
   return item.views;
 }
 
-async function fetchSprite(name) {
+async function fetchBulbapediaImage(name) {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+    const title = encodeURIComponent(`${name} (Pokémon)`);
+    const response = await fetch(
+      `https://bulbapedia.bulbagarden.net/w/api.php?action=query&titles=${title}&prop=pageimages&format=json&pithumbsize=300&origin=*`
+    );
     if (!response.ok) return "";
     const data = await response.json();
-    return data.sprites?.other?.["official-artwork"]?.front_default || data.sprites?.front_default || "";
+    const pages = data.query?.pages || {};
+    const page = Object.values(pages)[0];
+    return page?.thumbnail?.source || "";
   } catch (error) {
     return "";
   }
@@ -123,7 +128,10 @@ async function loadRound() {
     const [entryA, entryB] = pair;
 
     try {
-      const [spriteA, spriteB] = await Promise.all([fetchSprite(entryA.name), fetchSprite(entryB.name)]);
+      const [spriteA, spriteB] = await Promise.all([
+        fetchBulbapediaImage(entryA.name),
+        fetchBulbapediaImage(entryB.name),
+      ]);
 
       currentPair = {
         a: { name: entryA.name, views: entryA.views },
