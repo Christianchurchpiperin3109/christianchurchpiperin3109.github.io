@@ -53,15 +53,24 @@ async function fetchWeather(city) {
 }
 
 async function fetchPlacePhoto(city) {
-  const query = encodeURIComponent(`${city.name}, ${city.country}`);
-  try {
-    const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${query}`);
-    if (!response.ok) throw new Error("No summary found");
-    const data = await response.json();
-    return data.thumbnail?.source || data.originalimage?.source || "";
-  } catch (error) {
-    return "";
+  const candidates = [city.name, `${city.name}, ${city.country}`, `${city.name}, ${city.region}`];
+
+  for (const candidate of candidates) {
+    if (!candidate || candidate.trim() === "") continue;
+    try {
+      const response = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(candidate)}`
+      );
+      if (!response.ok) continue;
+      const data = await response.json();
+      const photo = data.thumbnail?.source || data.originalimage?.source || "";
+      if (photo) return photo;
+    } catch (error) {
+      // try the next candidate
+    }
   }
+
+  return "";
 }
 
 function formatRegionLine(city) {
