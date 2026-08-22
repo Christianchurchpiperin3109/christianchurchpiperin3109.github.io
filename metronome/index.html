@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metronome</title>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">Pokémon TCG</p>
+            <h1 class="bold-title">Metronome</h1>
+          </div>
+          <button id="new-move-btn" class="primary-btn" type="button">New Move</button>
+        </div>
+
+        <p id="status-message" class="status-message">Hit "New Move" to get a random attack.</p>
+
+        <div id="move-card" class="move-card hidden">
+          <p class="move-label">The move is...</p>
+          <h2 id="move-name" class="move-name"></h2>
+          <p id="move-meta" class="move-meta"></p>
+
+          <div class="guess-row">
+            <input id="guess-input" type="text" placeholder="Which Pokémon can use this move?" />
+            <button id="guess-btn" class="ghost-btn" type="button">Guess</button>
+          </div>
+
+          <p id="result-message" class="result-message"></p>
+
+          <img id="result-card-img" class="result-card-img hidden" src="" alt="" />
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js?v=1"></script>
+  </body>
+</html>
