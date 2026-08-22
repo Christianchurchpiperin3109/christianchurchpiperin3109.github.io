@@ -11,7 +11,7 @@ const startBtn = document.getElementById("start-btn");
 const pauseBtn = document.getElementById("pause-btn");
 const resetBtn = document.getElementById("reset-btn");
 
-let totalSeconds = 30;
+let totalSeconds = 0;
 let remainingSeconds = totalSeconds;
 let intervalId = null;
 
@@ -56,12 +56,20 @@ function playBeep() {
 
 function setTotalSeconds(seconds) {
   clearTimer();
-  totalSeconds = Math.max(1, seconds);
+  totalSeconds = Math.max(0, seconds);
   remainingSeconds = totalSeconds;
   timerMessage.textContent = "";
   timerMessage.classList.remove("done");
   renderTime();
   loadRandomPokemon();
+}
+
+function addSeconds(amount) {
+  totalSeconds += amount;
+  remainingSeconds += amount;
+  timerMessage.textContent = "";
+  timerMessage.classList.remove("done");
+  renderTime();
 }
 
 function clearTimer() {
@@ -97,7 +105,7 @@ function resetTimer() {
 
 presetButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    setTotalSeconds(Number(button.dataset.seconds));
+    addSeconds(Number(button.dataset.addSeconds));
   });
 });
 

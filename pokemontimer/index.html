@@ -17,16 +17,13 @@
 
         <div class="timer-wrap">
           <img id="timer-pokemon" class="timer-pokemon" src="" alt="Pokémon" />
-          <p id="timer-display" class="timer-display">00:30</p>
+          <p id="timer-display" class="timer-display">00:00</p>
           <p id="timer-message" class="timer-message"></p>
         </div>
 
         <div class="presets">
-          <button class="preset-btn" type="button" data-seconds="10">10s</button>
-          <button class="preset-btn" type="button" data-seconds="30">30s</button>
-          <button class="preset-btn" type="button" data-seconds="60">1m</button>
-          <button class="preset-btn" type="button" data-seconds="120">2m</button>
-          <button class="preset-btn" type="button" data-seconds="300">5m</button>
+          <button class="preset-btn" type="button" data-add-seconds="20">+20s</button>
+          <button class="preset-btn" type="button" data-add-seconds="50">+50s</button>
         </div>
 
         <div class="custom-time">
@@ -36,7 +33,7 @@
           </label>
           <label>
             Sec
-            <input id="seconds-input" type="number" min="0" max="59" value="30" />
+            <input id="seconds-input" type="number" min="0" max="59" value="0" />
           </label>
           <button id="set-custom" class="ghost-btn" type="button">Set</button>
         </div>
