@@ -27,7 +27,7 @@ select {
 html, body {
   margin: 0;
   min-height: 100%;
-  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
+  background: #f4e9ff;
   color: var(--ink);
   font-family: "Satoshi", "Trebuchet MS", "Segoe UI", sans-serif;
   font-weight: 700;
@@ -44,7 +44,7 @@ body {
 .page-bg {
   position: fixed;
   inset: -5%;
-  z-index: -1;
+  z-index: 0;
   background-image: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
   background-size: cover;
   background-position: center;
@@ -55,6 +55,8 @@ body {
 
 .app {
   width: min(92vw, 420px);
+  position: relative;
+  z-index: 1;
 }
 
 .panel {
