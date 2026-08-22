@@ -38,6 +38,7 @@ const placeRegion = document.getElementById("place-region");
 const weatherEmoji = document.getElementById("weather-emoji");
 const weatherCondition = document.getElementById("weather-condition");
 const weatherTemp = document.getElementById("weather-temp");
+const pageBg = document.getElementById("page-bg");
 
 function pickRandomCity() {
   const index = Math.floor(Math.random() * WEATHER_GAME_CITIES.length);
@@ -93,6 +94,10 @@ async function randomizePlace() {
     placePhoto.src = photoUrl;
     placePhoto.alt = city.name;
     placePhoto.classList.toggle("hidden", !photoUrl);
+
+    if (photoUrl) {
+      pageBg.style.backgroundImage = `url("${photoUrl}")`;
+    }
 
     weatherEmoji.textContent = conditionInfo.emoji;
     weatherCondition.textContent = conditionInfo.label;
