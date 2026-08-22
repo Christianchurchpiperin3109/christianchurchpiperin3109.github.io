@@ -18,13 +18,33 @@ let currentPair = null; // { a: {name, views}, b: {name, views} }
 let selectedSide = null; // "a" | "b"
 let revealed = false;
 
-function pickTwoDistinct(list) {
-  const first = list[Math.floor(Math.random() * list.length)];
-  let second = first;
-  while (second === first) {
-    second = list[Math.floor(Math.random() * list.length)];
+function pickDistinctSample(list, count) {
+  const pool = [...list];
+  const sample = [];
+  while (sample.length < count && pool.length > 0) {
+    const index = Math.floor(Math.random() * pool.length);
+    sample.push(pool.splice(index, 1)[0]);
   }
-  return [first, second];
+  return sample;
+}
+
+function findClosestPair(entries) {
+  let best = null;
+  let bestRatio = Infinity;
+
+  for (let i = 0; i < entries.length; i += 1) {
+    for (let j = i + 1; j < entries.length; j += 1) {
+      const viewsA = Math.max(entries[i].views, 1);
+      const viewsB = Math.max(entries[j].views, 1);
+      const ratio = Math.max(viewsA, viewsB) / Math.min(viewsA, viewsB);
+      if (ratio < bestRatio) {
+        bestRatio = ratio;
+        best = [entries[i], entries[j]];
+      }
+    }
+  }
+
+  return best;
 }
 
 function getSafeMonthRange() {
@@ -85,30 +105,39 @@ async function loadRound() {
   statusMessage.classList.remove("hidden");
   statusMessage.textContent = "Loading a matchup...";
 
-  const maxAttempts = 6;
+  const SAMPLE_SIZE = 10;
+  const maxAttempts = 4;
   for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-    const [nameA, nameB] = pickTwoDistinct(TREND_POKEMON);
+    const sampleNames = pickDistinctSample(TREND_POKEMON, SAMPLE_SIZE);
+
+    const settled = await Promise.allSettled(
+      sampleNames.map(async (name) => ({ name, views: await fetchPageviews(name) }))
+    );
+    const entries = settled.filter((r) => r.status === "fulfilled").map((r) => r.value);
+
+    if (entries.length < 2) continue;
+
+    const pair = findClosestPair(entries);
+    if (!pair) continue;
+
+    const [entryA, entryB] = pair;
+
     try {
-      const [viewsA, viewsB, spriteA, spriteB] = await Promise.all([
-        fetchPageviews(nameA),
-        fetchPageviews(nameB),
-        fetchSprite(nameA),
-        fetchSprite(nameB),
-      ]);
+      const [spriteA, spriteB] = await Promise.all([fetchSprite(entryA.name), fetchSprite(entryB.name)]);
 
       currentPair = {
-        a: { name: nameA, views: viewsA },
-        b: { name: nameB, views: viewsB },
+        a: { name: entryA.name, views: entryA.views },
+        b: { name: entryB.name, views: entryB.views },
       };
 
       pokeAImg.src = spriteA;
-      pokeAImg.alt = nameA;
-      pokeAName.textContent = nameA;
+      pokeAImg.alt = entryA.name;
+      pokeAName.textContent = entryA.name;
       pokeAStat.textContent = "";
 
       pokeBImg.src = spriteB;
-      pokeBImg.alt = nameB;
-      pokeBName.textContent = nameB;
+      pokeBImg.alt = entryB.name;
+      pokeBName.textContent = entryB.name;
       pokeBStat.textContent = "";
 
       statusMessage.classList.add("hidden");
@@ -118,7 +147,7 @@ async function loadRound() {
       newRoundBtn.disabled = false;
       return;
     } catch (error) {
-      // try a different pair
+      // try a different sample
     }
   }
 
