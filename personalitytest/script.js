@@ -197,4 +197,4 @@ lockAnswersBtn.addEventListener("click", lockInAnswers);
 submitGuessesBtn.addEventListener("click", submitGuesses);
 playAgainBtn.addEventListener("click", resetGame);
 
-setPhase("empty");
+randomizePokemon();
