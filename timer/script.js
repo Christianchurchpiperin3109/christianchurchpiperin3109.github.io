@@ -15,6 +15,33 @@ const yard = document.getElementById("yard");
 const MAX_ROAMERS = 15;
 let roamerCount = 0;
 
+// keep wanderers mostly clear of the timer panel in the middle of the screen
+const SAFE_ZONE = { left: 26, right: 74, top: 20, bottom: 80 };
+
+function pickEdgePosition() {
+  const onLeftHalf = Math.random() < 0.5;
+  const onTopHalf = Math.random() < 0.5;
+  const left = onLeftHalf ? 4 + Math.random() * (SAFE_ZONE.left - 8) : SAFE_ZONE.right + Math.random() * (96 - SAFE_ZONE.right);
+  const top = onTopHalf ? 8 + Math.random() * (SAFE_ZONE.top - 12) : SAFE_ZONE.bottom + Math.random() * (92 - SAFE_ZONE.bottom);
+  return { left, top };
+}
+
+function nudgePosition(currentLeft, currentTop) {
+  let nextLeft = currentLeft + (Math.random() * 2 - 1) * 7;
+  let nextTop = currentTop + (Math.random() * 2 - 1) * 7;
+  nextLeft = Math.max(4, Math.min(96, nextLeft));
+  nextTop = Math.max(6, Math.min(94, nextTop));
+
+  const inSafeZone =
+    nextLeft > SAFE_ZONE.left && nextLeft < SAFE_ZONE.right && nextTop > SAFE_ZONE.top && nextTop < SAFE_ZONE.bottom;
+
+  if (inSafeZone) {
+    return pickEdgePosition();
+  }
+
+  return { left: nextLeft, top: nextTop };
+}
+
 let totalSeconds = 0;
 let remainingSeconds = totalSeconds;
 let intervalId = null;
@@ -62,30 +89,41 @@ function spawnRoamer(spriteUrl, name) {
   roamer.src = spriteUrl;
   roamer.alt = name || "Pokémon";
   roamer.className = "roaming-pokemon";
-  roamer.style.left = `${8 + Math.random() * 80}%`;
-  roamer.style.top = `${14 + Math.random() * 68}%`;
+  const start = pickEdgePosition();
+  roamer.style.left = `${start.left}%`;
+  roamer.style.top = `${start.top}%`;
   yard.appendChild(roamer);
 
   roamerCount += 1;
+  updateDaycareCount();
   if (roamerCount > MAX_ROAMERS) {
     const oldest = yard.querySelector(".roaming-pokemon");
     if (oldest) oldest.remove();
+    roamerCount -= 1;
+    updateDaycareCount();
   }
 
   wanderLoop(roamer);
 }
 
+function updateDaycareCount() {
+  const counterEl = document.getElementById("daycare-count");
+  if (counterEl) {
+    counterEl.textContent = String(roamerCount);
+  }
+}
+
 function wanderLoop(roamer) {
   function step() {
-    const nextLeft = 6 + Math.random() * 84;
-    const nextTop = 10 + Math.random() * 74;
     const currentLeft = parseFloat(roamer.style.left) || 0;
-    roamer.style.transform = nextLeft < currentLeft ? "scaleX(-1)" : "scaleX(1)";
-    roamer.style.left = `${nextLeft}%`;
-    roamer.style.top = `${nextTop}%`;
-    setTimeout(step, 2500 + Math.random() * 3000);
+    const currentTop = parseFloat(roamer.style.top) || 0;
+    const next = nudgePosition(currentLeft, currentTop);
+    roamer.style.transform = next.left < currentLeft ? "scaleX(-1)" : "scaleX(1)";
+    roamer.style.left = `${next.left}%`;
+    roamer.style.top = `${next.top}%`;
+    setTimeout(step, 5000 + Math.random() * 4000);
   }
-  setTimeout(step, 800 + Math.random() * 2000);
+  setTimeout(step, 1500 + Math.random() * 3000);
 }
 
 function showEgg() {

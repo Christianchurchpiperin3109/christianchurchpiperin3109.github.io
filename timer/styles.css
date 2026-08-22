@@ -55,10 +55,6 @@ body {
     radial-gradient(circle 5px at 62% 82%, #fff59d 92%, transparent 94%),
     radial-gradient(circle 5px at 22% 78%, #fff59d 92%, transparent 94%),
     radial-gradient(circle 5px at 45% 40%, #fff59d 92%, transparent 94%),
-    radial-gradient(circle 22px at 12% 55%, #4f9142 88%, transparent 90%),
-    radial-gradient(circle 26px at 90% 65%, #4f9142 88%, transparent 90%),
-    radial-gradient(circle 18px at 50% 15%, #4f9142 88%, transparent 90%),
-    radial-gradient(circle 20px at 75% 88%, #4f9142 88%, transparent 90%),
     repeating-conic-gradient(var(--grass-1) 0% 25%, var(--grass-2) 0% 50%) 0 0 / 44px 44px;
   border: 18px solid var(--wood-dark);
   outline: 8px solid var(--wood);
@@ -70,6 +66,33 @@ body {
   width: min(88vw, 360px);
   position: relative;
   z-index: 1;
+}
+
+.daycare-counter {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 246, 226, 0.85);
+  border: 3px solid var(--wood-dark);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem 0.3rem 0.3rem;
+  box-shadow: 0 6px 14px rgba(74, 46, 23, 0.3);
+}
+
+.daycare-counter-ball {
+  width: 26px;
+  height: 26px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#daycare-count {
+  font-weight: 800;
+  font-size: 1rem;
 }
 
 .panel {
@@ -161,7 +184,7 @@ h1 {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.3));
-  transition: left 3s ease-in-out, top 3s ease-in-out, transform 0.2s ease;
+  transition: left 6s linear, top 6s linear, transform 0.3s ease;
   pointer-events: none;
 }
 
