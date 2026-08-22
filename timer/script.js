@@ -10,6 +10,10 @@ const secondsInput = document.getElementById("seconds-input");
 const startBtn = document.getElementById("start-btn");
 const pauseBtn = document.getElementById("pause-btn");
 const resetBtn = document.getElementById("reset-btn");
+const yard = document.getElementById("yard");
+
+const MAX_ROAMERS = 15;
+let roamerCount = 0;
 
 let totalSeconds = 0;
 let remainingSeconds = totalSeconds;
@@ -40,14 +44,48 @@ async function hatchRandomPokemon() {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = await response.json();
     const sprite =
-      data.sprites?.other?.["official-artwork"]?.front_default || data.sprites?.front_default || "";
+      data.sprites?.front_default || data.sprites?.other?.["official-artwork"]?.front_default || "";
     timerPokemonImg.src = sprite;
     timerPokemonImg.alt = data.name;
     timerEgg.classList.add("hidden");
     timerPokemonImg.classList.remove("hidden");
+    spawnRoamer(sprite, data.name);
   } catch (error) {
     // keep the egg showing if the hatch fetch fails
   }
+}
+
+function spawnRoamer(spriteUrl, name) {
+  if (!spriteUrl) return;
+
+  const roamer = document.createElement("img");
+  roamer.src = spriteUrl;
+  roamer.alt = name || "Pokémon";
+  roamer.className = "roaming-pokemon";
+  roamer.style.left = `${8 + Math.random() * 80}%`;
+  roamer.style.top = `${14 + Math.random() * 68}%`;
+  yard.appendChild(roamer);
+
+  roamerCount += 1;
+  if (roamerCount > MAX_ROAMERS) {
+    const oldest = yard.querySelector(".roaming-pokemon");
+    if (oldest) oldest.remove();
+  }
+
+  wanderLoop(roamer);
+}
+
+function wanderLoop(roamer) {
+  function step() {
+    const nextLeft = 6 + Math.random() * 84;
+    const nextTop = 10 + Math.random() * 74;
+    const currentLeft = parseFloat(roamer.style.left) || 0;
+    roamer.style.transform = nextLeft < currentLeft ? "scaleX(-1)" : "scaleX(1)";
+    roamer.style.left = `${nextLeft}%`;
+    roamer.style.top = `${nextTop}%`;
+    setTimeout(step, 2500 + Math.random() * 3000);
+  }
+  setTimeout(step, 800 + Math.random() * 2000);
 }
 
 function showEgg() {

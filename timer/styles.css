@@ -30,7 +30,7 @@ select {
 html, body {
   margin: 0;
   min-height: 100%;
-  background: linear-gradient(to bottom, var(--sky-1) 0%, var(--sky-2) 42%, var(--grass-1) 43%, var(--grass-2) 100%);
+  background: var(--grass-2);
   color: var(--ink);
   font-family: "Satoshi", "Trebuchet MS", "Segoe UI", sans-serif;
   font-weight: 700;
@@ -40,10 +40,36 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.yard {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 5px at 8% 18%, #fff59d 92%, transparent 94%),
+    radial-gradient(circle 5px at 88% 12%, #fff59d 92%, transparent 94%),
+    radial-gradient(circle 5px at 62% 82%, #fff59d 92%, transparent 94%),
+    radial-gradient(circle 5px at 22% 78%, #fff59d 92%, transparent 94%),
+    radial-gradient(circle 5px at 45% 40%, #fff59d 92%, transparent 94%),
+    radial-gradient(circle 22px at 12% 55%, #4f9142 88%, transparent 90%),
+    radial-gradient(circle 26px at 90% 65%, #4f9142 88%, transparent 90%),
+    radial-gradient(circle 18px at 50% 15%, #4f9142 88%, transparent 90%),
+    radial-gradient(circle 20px at 75% 88%, #4f9142 88%, transparent 90%),
+    repeating-conic-gradient(var(--grass-1) 0% 25%, var(--grass-2) 0% 50%) 0 0 / 44px 44px;
+  border: 18px solid var(--wood-dark);
+  outline: 8px solid var(--wood);
+  outline-offset: -18px;
+  image-rendering: pixelated;
 }
 
 .app {
   width: min(88vw, 360px);
+  position: relative;
+  z-index: 1;
 }
 
 .panel {
@@ -116,13 +142,27 @@ h1 {
 }
 
 .timer-pokemon {
-  width: 100%;
-  height: 100%;
+  width: 78%;
+  height: 78%;
   object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .hidden {
   display: none;
+}
+
+.roaming-pokemon {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.3));
+  transition: left 3s ease-in-out, top 3s ease-in-out, transform 0.2s ease;
+  pointer-events: none;
 }
 
 @keyframes egg-shake {
