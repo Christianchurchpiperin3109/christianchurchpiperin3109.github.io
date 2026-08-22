@@ -23,7 +23,7 @@ html, body {
   min-height: 100%;
   background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 100%);
   color: var(--ink);
-  font-family: "Arial Black", "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "Baloo 2", "Trebuchet MS", "Segoe UI", sans-serif;
   font-weight: 700;
 }
 
@@ -84,8 +84,9 @@ h1 {
 }
 
 .timer-egg {
-  font-size: 5.5rem;
-  line-height: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .timer-pokemon {
@@ -110,19 +111,6 @@ h1 {
   min-height: 1.4rem;
   font-weight: 800;
   color: var(--danger);
-}
-
-.timer-message.done {
-  animation: pulse 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes pulse {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
 }
 
 .presets {
